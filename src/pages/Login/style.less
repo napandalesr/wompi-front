@@ -1,0 +1,29 @@
+@import "../../index.less";
+
+.containerLogin {
+  background-image: url('/public/fondo.jpg');
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &__form {
+    width: 500px;
+    height: 400px;
+    border-radius: 12px;
+    background-color: @secundary-color;
+    position: relative;
+    &__button {
+      position: absolute;
+      top: -16px;
+    }
+    button {
+      background-color: @primary-color;
+      color: white;
+      border: 0;
+      padding: 6px 12px;
+      border-radius: 8px;
+      margin: 0 4px;
+    }
+  }
+}

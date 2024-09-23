@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import Layout from './containers/Layout';
 
+import './index.less';
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
