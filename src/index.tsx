@@ -1,9 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { ConfigProvider } from 'antd';
+import es_ES from 'antd/lib/locale/es_ES';
+
+
 import reportWebVitals from './reportWebVitals';
 import Layout from './containers/Layout';
 
 import './index.less';
+import { Provider } from 'react-redux';
+import { persistor, store } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +19,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Layout />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ConfigProvider locale={es_ES}>
+          <Layout />
+        </ConfigProvider>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>
 );
 

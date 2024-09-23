@@ -1,3 +1,3 @@
 export const IsLoggedIn = (): boolean => {
-  return false;
+  return window.sessionStorage['access_token'] !== undefined;
 };
