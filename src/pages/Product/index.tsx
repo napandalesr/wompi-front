@@ -7,6 +7,7 @@ import { RootState } from '../../redux/reducers/rootReducer';
 import { AnyAction } from 'redux';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../../redux/actions/productActions';
+import Navbar from '../../components/Navbar';
 
 const Product = () => {
   const dispatch: ThunkDispatch<RootState, undefined, AnyAction> = useDispatch();
@@ -16,7 +17,8 @@ const Product = () => {
     dispatch(getProductById(1));
   }, [])
 
-  return <>
+  return <main>
+    <Navbar/>
   {
     productSelected && <>
     <CarouselComponent images={productSelected.images}/>
@@ -28,7 +30,7 @@ const Product = () => {
       <h4 className="other-products__title">TAMBIÉN TE PODRÍA GUSTAR</h4>
       <Slick/>
     </div>
-    </>;
+    </main>;
 }
 
 export default Product;

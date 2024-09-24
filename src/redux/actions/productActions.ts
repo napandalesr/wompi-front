@@ -13,7 +13,6 @@ export const getProductById = (id: number) => {
 export const getProducts = () => {
   return async (dispatch: Dispatch) => {
     const reponse = await ProductGet();
-    console.log('reponse', reponse);
     for (let i = 0; i < reponse.data.length; i++) {
       reponse.data[i].images = reponse.data[i].images.replace(/'/g, '"');
       reponse.data[i].images = JSON.parse(reponse.data[i].images)

@@ -33,7 +33,7 @@ const Slick: React.FC = () => {
     className={`slick`}
   >
     {
-      productRelactions.length > 0 && productRelactions.map((item, i) => <SwiperSlide className="container">
+      productRelactions.length > 0 && productRelactions.map((item, i) => <SwiperSlide key={i} className="container">
         <img src={`${process.env.REACT_APP_API_HOST}${item.images[0]}`} />
         <p className="text">{item.name}</p>
         <span className="price">${item.price}</span>
