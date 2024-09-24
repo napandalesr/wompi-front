@@ -7,11 +7,11 @@ export type ProductType = {
   shipping: string,
   status: string,
   description: string;
-  images: string;
+  images: string[];
 }
 
 interface ProductState {
-  productSelected: ProductType;
+  productSelected: ProductType | null;
   productRelactions: ProductType[];
   error: string | null;
 }
@@ -23,24 +23,16 @@ interface Action {
 
 const initialState: ProductState = {
   productRelactions: [],
-  productSelected: {
-    id: 1,
-    count: 0,
-    description: '',
-    images: '',
-    name: '',
-    oldPrice: 0,
-    price: 0,
-    shipping: '',
-    status: ''
-  },
+  productSelected: null,
   error: null
 };
 
 export const productReducer = (state = initialState, action: Action): ProductState => {
   switch(action.type) {
     case 'PRODUCT_ID':
-      return { ...state, productSelected: action.payload.productSelected, error: null };
+      return { ...state, productSelected: action.payload, error: null };
+    case 'PRODUCTS':
+      return { ...state, productRelactions: action.payload, error: null };
     default:
       return state;
   }

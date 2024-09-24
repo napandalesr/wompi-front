@@ -1,0 +1,24 @@
+
+.carousel {
+  button, .carousel-status, .thumbs {
+    display: none !important;
+  }
+  img {
+    height: 65vh;
+    width: 100vw;
+    object-fit: cover;
+  }
+  .dot {
+    width: 16px !important;
+    height: 4px !important;
+    border-radius: 20px !important;
+    box-shadow: none !important;
+    //background-color: @blanco !important;
+    opacity: 1 !important;
+    margin: 0 4px !important;
+    &.selected {
+      //background-color: @primary-color !important;
+      width: 32px !important;
+    }
+  }
+}

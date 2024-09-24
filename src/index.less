@@ -1,13 +1,25 @@
 @primary-color: #002B5B;
 @secundary-color: #FF6F00;
 @tertiary-color: #F5F5F5;
-
+@grey: #ECEFF1;
+@grey-accent: #CFD8DC;
+@grey-text: #0066CC;
 
 html, body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 * {
   font-family: 'Poppins', sans-serif;
+}
+
+.other-products {
+  padding: 24px;
+  padding-top: 0;
+  &__title {
+    font-size: 12px;
+    color: @primary-color;
+  }
 }
