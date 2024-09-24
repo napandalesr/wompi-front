@@ -20,3 +20,10 @@ export const getProducts = () => {
     dispatch({ type: 'PRODUCTS', payload: reponse.data });
   }
 }
+
+export const showProductId = (id: number) => {
+  return async (dispatch: Dispatch) => {
+    dispatch({ type: 'SHOW_PRODUCT', payload: id });
+    
+  }
+}

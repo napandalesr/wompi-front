@@ -12,10 +12,11 @@ import Navbar from '../../components/Navbar';
 const Product = () => {
   const dispatch: ThunkDispatch<RootState, undefined, AnyAction> = useDispatch();
   const productSelected = useSelector((state: RootState) => state.prod.productSelected);
+  const productShow = useSelector((state: RootState) => state.prod.showProduct);
 
   useEffect(() => {
-    dispatch(getProductById(1));
-  }, [])
+    dispatch(getProductById(productShow));
+  }, [productShow]);
 
   return <main>
     <Navbar/>

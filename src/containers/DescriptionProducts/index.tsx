@@ -2,12 +2,18 @@ import React, { useState } from "react";
 
 import "./styles.less";
 import { ProductType } from "../../redux/reducers/productReducer";
+import { ThunkDispatch } from "redux-thunk";
+import { RootState } from "../../redux/reducers/rootReducer";
+import { useDispatch } from "react-redux";
+import { AnyAction } from 'redux';
+import { addToCar } from "../../redux/actions/carActions";
 
 interface props {
   dataSource: ProductType
 }
 
 const DescriptionProducts: React.FC<props> = ({ dataSource }) => {
+  const dispatch: ThunkDispatch<RootState, undefined, AnyAction> = useDispatch();
   const [countSelected, setCountSelected] = useState(1);
 
  const add = () => {
@@ -36,7 +42,7 @@ const DescriptionProducts: React.FC<props> = ({ dataSource }) => {
     <span className="descriptionProduct__cant">
       <span onClick={remove}>-</span>{countSelected}<span onClick={add}>+</span>
     </span>
-    <button onClick={() => {}}>Agregar al carrito</button>
+    <button onClick={() => {dispatch(addToCar(dataSource.id, countSelected))}}>Agregar al carrito</button>
     <h4 className="descriptionProduct__subtitle">DESCRIPCIÓN:</h4>
     <p className="descriptionProduct__text">
     {dataSource.description}

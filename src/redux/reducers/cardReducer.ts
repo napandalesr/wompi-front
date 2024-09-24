@@ -34,11 +34,15 @@ export const cardReducer = (state = initialState, action: Action): cartState => 
       return { ...state, products: state.products.filter(item => item.idProduct !== action.payload)};
     case 'UPDATE_TO_CARD':
       const newState = state.products;
+      console.log('action.payload', action.payload);
+      
       newState.forEach(item => {
         if(item.idProduct === action.payload.idProduct) {
           item.count = action.payload.count;
         }
       })
+      console.log('newState', newState);
+      
       return { ...state, products: newState};
     default:
       return state;

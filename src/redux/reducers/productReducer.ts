@@ -12,6 +12,7 @@ export type ProductType = {
 
 interface ProductState {
   productSelected: ProductType | null;
+  showProduct: number;
   productRelactions: ProductType[];
   error: string | null;
 }
@@ -24,6 +25,7 @@ interface Action {
 const initialState: ProductState = {
   productRelactions: [],
   productSelected: null,
+  showProduct: 1,
   error: null
 };
 
@@ -33,6 +35,8 @@ export const productReducer = (state = initialState, action: Action): ProductSta
       return { ...state, productSelected: action.payload, error: null };
     case 'PRODUCTS':
       return { ...state, productRelactions: action.payload, error: null };
+    case 'SHOW_PRODUCT':
+      return { ...state, showProduct: action.payload, error: null };
     default:
       return state;
   }
