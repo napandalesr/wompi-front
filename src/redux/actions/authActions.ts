@@ -1,5 +1,5 @@
 import { Dispatch } from 'redux';
-import { Authentication } from '../../api/module/auth';
+import { Authentication, RegisterUser } from '../../api/module/auth';
 
 export const login = (credentials: { email: string; password: string }) => {
   return async (dispatch: Dispatch) => {
@@ -14,7 +14,7 @@ export const login = (credentials: { email: string; password: string }) => {
   };
 };
 
-export const register = (newUser: { email: string; password: string; name: string }) => {
+export const register = (newUser: { email: string; password: string; name: string, confirmPassword: string }) => {
   return async (dispatch: Dispatch) => {
     try {
       const response = await fakeApiRegister(newUser);
@@ -25,19 +25,22 @@ export const register = (newUser: { email: string; password: string; name: strin
   };
 };
 
-// Simulaciones de API
 const fakeApiLogin = (credentials: { email: string; password: string }) =>
   new Promise<{ accessToken: string }>((resolve, reject) => {
     if(credentials.email === "" || credentials.password === "") {
-      reject(new Error('Llene los campos'));
+      reject(new Error('Todos los campos son obligatorios'));
     }else {
       resolve(Authentication(credentials))
     }
   });
 
-const fakeApiRegister = (newUser: { email: string; password: string; name: string }) =>
-  new Promise<{ message: string }>((resolve) => {
-    setTimeout(() => {
-      resolve({ message: 'User registered successfully' });
-    }, 1000);
+const fakeApiRegister = (newUser: { email: string; password: string; name: string, confirmPassword: string }) =>
+  new Promise<{ message: string }>((resolve, reject) => {
+    if(newUser.email === "" || newUser.password === "" || newUser.password === "") {
+      reject(new Error('Todos los campos son obligatorios'));
+    }else if(newUser.password !== newUser.confirmPassword) {
+      reject(new Error('Las contraseñas no son iguales'));
+    }else {
+      resolve(RegisterUser(newUser));
+    }
   });

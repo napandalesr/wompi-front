@@ -1,22 +1,27 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/reducers/rootReducer';
-import { login } from '../../redux/actions/authActions';
+import { login, register } from '../../redux/actions/authActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 
 const FormLogin = () => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [form, setForm] = useState<'login' | 'register'>('login');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const dispatch: ThunkDispatch<RootState, undefined, AnyAction> = useDispatch();
   const error = useSelector((state: RootState) => state.auth.error);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmitLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(email, password);
-    
     dispatch(login({ email, password }));
+  };
+
+  const handleSubmitRegister = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(register({ name, email, password, confirmPassword }));
   };
 
   return <section className='containerLogin__form'>
@@ -26,7 +31,7 @@ const FormLogin = () => {
     </span>
     {
       form === 'login' ? 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmitLogin}>
         <h4>Ingresa con tus datos</h4>
       {error && <p className='message-error' style={{ color: 'red' }}>{error}</p>}
         <div>
@@ -48,14 +53,14 @@ const FormLogin = () => {
         <button type="submit">Ingresar</button>
     </form>
     :
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmitRegister}>
     {error && <p className='message-error' style={{ color: 'red' }}>{error}</p>}
       <div>
         <input
-          type="email"
+          type="text"
           placeholder='Nombre'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
       <div>
@@ -78,11 +83,11 @@ const FormLogin = () => {
         <input
           type="password"
           placeholder='Confirmar contraseña'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </div>
-      <button type="submit">Login</button>
+      <button type="submit">Registrame</button>
     </form>
     }
     

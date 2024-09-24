@@ -5,6 +5,12 @@ const Authentication = async (data: any) => {
   return reponse.data;
 };
 
+const RegisterUser = async (data: any) => {
+  const reponse = await httpClient.post(`${process.env.REACT_APP_API_HOST}auth/register`, data);
+  return reponse.data;
+};
+
 export {
-  Authentication
+  Authentication,
+  RegisterUser
 };
