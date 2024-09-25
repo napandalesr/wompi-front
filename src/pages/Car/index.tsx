@@ -6,6 +6,8 @@ import './styles.less';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/reducers/rootReducer';
 import Modal from '../../containers/Modal';
+import { acceptanceTokenGet } from '../../api/module/acceptanceToken';
+import { paymentPost } from '../../api/module/payment';
 
 const Car = () => {
   const productsCart = useSelector((state: RootState) => state.car.products);
@@ -13,12 +15,20 @@ const Car = () => {
   const [total, setTotal] = useState(0);
   const [showModal, setShowModal] = useState(false);
 
+
   useEffect(() => {
     updateTotal();
   }, [])
 
   const closeModal = () => {
     setShowModal(false);
+  }
+
+  const acceptanceToken = async () => {
+    const response = await  acceptanceTokenGet();
+    sessionStorage.setItem('acceptance_token', response.acceptance_token);
+    sessionStorage.setItem('permalink', response.permalink);
+    setShowModal(true);
   }
 
   const updateTotal = () => {
@@ -32,6 +42,23 @@ const Car = () => {
     setTotal(sum);
   };
 
+  const payment = async (token:string) => {
+    const postPayment = await paymentPost({
+      amount_in_cents: "500000000",
+      currency: "COP",
+      customer_email: "napandalesr@gmail.com",
+      acceptance_token: sessionStorage.getItem('acceptance_token'),
+      payment_method: {
+        type: "CARD",
+        token: token,
+        installments: 1
+      },
+    });
+
+    console.log('postPayment', postPayment);
+    
+  }
+
   return <main>
     <Navbar/>
     <h2 style={{padding: '10px', borderBottom: '1px solid '}}>Carrito</h2>
@@ -40,10 +67,10 @@ const Car = () => {
     }
     <section className='pay'>
       <p>Total: ${total}</p>
-      <button onClick={(()=> setShowModal(true))}>Pagar</button>
+      <button onClick={acceptanceToken}>Pagar</button>
     </section>
     {
-      showModal && <Modal closeModal={closeModal}/>
+      showModal && <Modal closeModal={closeModal} paynmet={payment}/>
     }
   </main>;
 }

@@ -29,7 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts-less start",
-    "build": "react-scripts build",
+    "build": "react-scripts-less build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

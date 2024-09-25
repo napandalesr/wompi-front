@@ -36,8 +36,8 @@ const DescriptionProducts: React.FC<props> = ({ dataSource }) => {
     </div>
     <h3 className="descriptionProduct__name">{dataSource.name}</h3>
     <div className="descriptionProduct__price">
-      <span className="descriptionProduct__price__old">{dataSource.oldPrice}</span>
-      <span className="descriptionProduct__price__best">{dataSource.price}</span>
+      <span className="descriptionProduct__price__old">$ {dataSource.oldPrice}</span>
+      <span className="descriptionProduct__price__best">$ {dataSource.price}</span>
     </div>
     <span className="descriptionProduct__cant">
       <span onClick={remove}>-</span>{countSelected}<span onClick={add}>+</span>

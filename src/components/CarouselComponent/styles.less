@@ -1,23 +1,31 @@
+@import "../../index.less";
 
 .carousel {
   button, .carousel-status, .thumbs {
     display: none !important;
   }
+  @media @large {
+    margin: 20px;
+    width: 40vw !important;
+    height: 100%;
+  }
   img {
     height: 65vh;
     width: 100vw;
     object-fit: cover;
+    @media @large {
+      width: 30vw !important;
+    }
   }
   .dot {
     width: 16px !important;
     height: 4px !important;
     border-radius: 20px !important;
     box-shadow: none !important;
-    //background-color: @blanco !important;
     opacity: 1 !important;
     margin: 0 4px !important;
     &.selected {
-      //background-color: @primary-color !important;
+      background-color: @primary-color !important;
       width: 32px !important;
     }
   }

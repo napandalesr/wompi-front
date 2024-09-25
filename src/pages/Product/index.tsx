@@ -9,6 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from '../../redux/actions/productActions';
 import Navbar from '../../components/Navbar';
 
+import './style.less';
+
 const Product = () => {
   const dispatch: ThunkDispatch<RootState, undefined, AnyAction> = useDispatch();
   const productSelected = useSelector((state: RootState) => state.prod.productSelected);
@@ -21,10 +23,10 @@ const Product = () => {
   return <main>
     <Navbar/>
   {
-    productSelected && <>
+    productSelected && <section className='contain'>
     <CarouselComponent images={productSelected.images}/>
     <DescriptionProducts dataSource={productSelected}/>
-    </>
+    </section>
   }
   
     <div className="other-products">

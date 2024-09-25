@@ -9,6 +9,10 @@
   padding: 24px;
   padding-bottom: 20px;
   box-shadow: -2px 7px 21px 3px @grey;
+  @media @large {
+    width: 55vw;
+    margin-top: 50px;
+  }
   button {
     background: linear-gradient(180deg, rgba(0,62,130,1) 30%, rgba(0,82,163,1) 80%);
     color: white;
@@ -39,6 +43,9 @@
     font-weight: bold;
     margin-top: 10px;
     margin-bottom: 4px;
+    @media @large {
+      font-size: 32px;
+    }
   }
   &__star {
     width: 100%;
@@ -55,6 +62,9 @@
     }
     &__best {
       margin-left: 8px;
+      @media @large {
+        font-size: 24px;
+      }
     }
   }
   &__tallas {
