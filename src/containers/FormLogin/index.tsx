@@ -4,6 +4,8 @@ import { RootState } from '../../redux/reducers/rootReducer';
 import { login, register } from '../../redux/actions/authActions';
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
+import { message } from 'antd';
+import { loading } from '../../redux/actions/spinnerActions';
 
 const FormLogin = () => {
   const [name, setName] = useState('');
@@ -21,7 +23,14 @@ const FormLogin = () => {
 
   const handleSubmitRegister = (e: React.FormEvent) => {
     e.preventDefault();
+    dispatch(loading(true));
     dispatch(register({ name, email, password, confirmPassword }));
+    message.open({
+      type: 'success',
+      content: 'El registró se realizó con éxito',
+    });
+    setForm('login');
+    dispatch(loading(false));
   };
 
   return <section className='containerLogin__form'>
