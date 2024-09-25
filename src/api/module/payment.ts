@@ -10,7 +10,13 @@ const paymentPost = async (data: any) => {
   return reponse.data;
 };
 
+const paymentVerifyGet = async (id: any) => {
+  const reponse = await httpClient.get(`${process.env.REACT_APP_API_HOST}/payment/status/${id}`);
+  return reponse.data;
+};
+
 export {
   acceptanceTokenGet,
-  paymentPost
+  paymentPost,
+  paymentVerifyGet
 };

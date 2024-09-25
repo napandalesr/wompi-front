@@ -17,3 +17,9 @@ export const deleteoCar = (idProduct: number) => {
     dispatch({ type: 'DELETE_TO_CARD', payload: idProduct });
   }
 }
+
+export const cleanCar = () => {
+  return async (dispatch: Dispatch) => {
+    dispatch({ type: 'CLEAN_TO_CARD', payload: [] });
+  }
+}

@@ -8,13 +8,16 @@ import { RootState } from '../../redux/reducers/rootReducer';
 import Modal from '../../containers/Modal';
 import { acceptanceTokenGet } from '../../api/module/acceptanceToken';
 import { paymentPost } from '../../api/module/payment';
+import Slick from '../../components/Slick';
+import Spinner from '../../components/Spinner';
+import { UpdateProduct } from '../../api/module/product';
 
-const Car = () => {
+const Car: React.FC = () => {
   const productsCart = useSelector((state: RootState) => state.car.products);
   const productRelactions = useSelector((state: RootState) => state.prod.productRelactions);
+  const loading = useSelector((state: RootState) => state.load.load);
   const [total, setTotal] = useState(0);
   const [showModal, setShowModal] = useState(false);
-
 
   useEffect(() => {
     updateTotal();
@@ -44,7 +47,7 @@ const Car = () => {
 
   const payment = async (token:string) => {
     const postPayment = await paymentPost({
-      amount_in_cents: "500000000",
+      amount_in_cents: ""+total,
       currency: "COP",
       customer_email: "napandalesr@gmail.com",
       acceptance_token: sessionStorage.getItem('acceptance_token'),
@@ -55,8 +58,18 @@ const Car = () => {
       },
     });
 
-    console.log('postPayment', postPayment);
-    
+    await updateCounts();
+
+    return postPayment.data;
+  }
+
+  const updateCounts = async() => {
+    productRelactions.forEach(async item => {
+      const seacrh = productsCart.filter(prod => prod.idProduct === item.id);
+      if(seacrh.length > 0) {
+        await UpdateProduct({...item, count: item.count - seacrh[0].count, images: JSON.stringify(item.images).replace(/"/g, "'")});
+      }
+    })
   }
 
   return <main>
@@ -66,11 +79,19 @@ const Car = () => {
       productsCart.map((item, i) => <Articles key={i} productId={item.idProduct} count={item.count} updateTotal={updateTotal}/>)
     }
     <section className='pay'>
-      <p>Total: ${total}</p>
-      <button onClick={acceptanceToken}>Pagar</button>
+      <p>Total: ${total} </p><p style={{fontSize: '12px'}}>Mínimo $150.000</p>
+      <button disabled={total<150000} style={{opacity: total<150000 ? '.5' : '1'}} onClick={acceptanceToken}>Pagar</button>
     </section>
     {
       showModal && <Modal closeModal={closeModal} paynmet={payment}/>
+    }
+    
+    <div className="other-products">
+      <h4 className="other-products__title">TAMBIÉN TE PODRÍA GUSTAR</h4>
+      <Slick/>
+    </div>
+    {
+      loading && <Spinner/>
     }
   </main>;
 }

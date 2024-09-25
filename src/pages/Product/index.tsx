@@ -10,11 +10,13 @@ import { getProductById } from '../../redux/actions/productActions';
 import Navbar from '../../components/Navbar';
 
 import './style.less';
+import Spinner from '../../components/Spinner';
 
 const Product = () => {
   const dispatch: ThunkDispatch<RootState, undefined, AnyAction> = useDispatch();
   const productSelected = useSelector((state: RootState) => state.prod.productSelected);
   const productShow = useSelector((state: RootState) => state.prod.showProduct);
+  const loading = useSelector((state: RootState) => state.load.load);
 
   useEffect(() => {
     dispatch(getProductById(productShow));
@@ -24,8 +26,8 @@ const Product = () => {
     <Navbar/>
   {
     productSelected && <section className='contain'>
-    <CarouselComponent images={productSelected.images}/>
-    <DescriptionProducts dataSource={productSelected}/>
+      <CarouselComponent images={productSelected.images}/>
+      <DescriptionProducts dataSource={productSelected}/>
     </section>
   }
   
@@ -33,6 +35,9 @@ const Product = () => {
       <h4 className="other-products__title">TAMBIÉN TE PODRÍA GUSTAR</h4>
       <Slick/>
     </div>
+    {
+      loading && <Spinner/>
+    }
     </main>;
 }
 
